@@ -1,0 +1,42 @@
+## web cat dog 3가지 도커파일을 각각 ecr에 업로드하는 gitaction yaml
+
+name: cats and dogs gitaction
+
+on: workflow_dispatch
+
+env:
+  AWS_ACCESS_ROLE: ${{ secrets.AWS_ACCESS_ROLE }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_CATS_REPO: ${{ vars.AWS_CATS_REPO }}
+  AWS_DOGS_REPO: ${{ vars.AWS_DOGS_REPO }}
+  AWS_WEBS_REPO: ${{ vars.AWS_WEBS.REPO }}
+  
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  webs:
+    name: build-web-container
+    runs-on: ubuntu:latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+  cats:
+    name: build-cat- container
+    runs-on: ubuntu:latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+  dogs:
+    name: build-dogs-container
+    runs-on: ubuntu:latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
