@@ -9,7 +9,7 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   AWS_CATS_REPO: ${{ vars.AWS_CATS_REPO }}
   AWS_DOGS_REPO: ${{ vars.AWS_DOGS_REPO }}
-  AWS_WEBS_REPO: ${{ vars.AWS_WEBS.REPO }}
+  AWS_WEBS_REPO: ${{ vars.AWS_WEBS_REPO }}
   
 permissions:
   contents: read
