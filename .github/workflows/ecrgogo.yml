@@ -41,7 +41,7 @@ jobs:
 
       - name: docker build to webs
         run: |
-          docker build -t $AWS_WEBS_REPO:latest .
+          docker build -t ${{ env.AWS_WEBS_REPO }}:latest .
           docker images
 
   cats-jobs:
