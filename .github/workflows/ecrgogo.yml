@@ -16,60 +16,60 @@ permissions:
   id-token: write
 
 jobs:
-  webs:
+  webs-jobs:
     name: build-web-container
     runs-on: ubuntu:latest
     
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ env.AWS_ACCESS_ROLE }}
+          role-duration-seconds: 900
+          
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Setup AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: ${{ env.AWS_ACCESS_ROLE }}
-        role-duration-seconds: 900
-        
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-
-  cats:
+  cats-jobs:
     name: build-cat- container
     runs-on: ubuntu:latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ env.AWS_ACCESS_ROLE }}
+          role-duration-seconds: 900
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Setup AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: ${{ env.AWS_ACCESS_ROLE }}
-        role-duration-seconds: 900
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-
-  dogs:
+  dogs-jobs:
     name: build-dogs-container
     runs-on: ubuntu:latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: ${{ env.AWS_ACCESS_ROLE }}
-        role-duration-seconds: 900
-
-    - name: Login to A mazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ env.AWS_ACCESS_ROLE }}
+          role-duration-seconds: 900
+  
+      - name: Login to A mazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
     
