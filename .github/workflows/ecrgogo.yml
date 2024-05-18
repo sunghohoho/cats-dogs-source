@@ -35,6 +35,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: move to webs
+        run: |
+          mv web/* ./
+          pwd
+
   cats-jobs:
     name: build-cat- container
     runs-on: ubuntu:latest
@@ -54,6 +59,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: move to cats
+        run: |
+          mv cats/* ./
+          pwd
+
   dogs-jobs:
     name: build-dogs-container
     runs-on: ubuntu:latest
@@ -72,4 +82,9 @@ jobs:
       - name: Login to A mazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+
+      - name: move to dogs
+        run: |
+          mv dogs/* ./
+          pwd
     
