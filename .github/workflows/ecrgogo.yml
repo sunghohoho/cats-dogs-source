@@ -39,6 +39,7 @@ jobs:
         run: |
           mv web/* ./
           pwd
+          ls -al
 
   cats-jobs:
     name: build-cat- container
@@ -63,6 +64,7 @@ jobs:
         run: |
           mv cats/* ./
           pwd
+          ls -al
 
   dogs-jobs:
     name: build-dogs-container
@@ -87,4 +89,5 @@ jobs:
         run: |
           mv dogs/* ./
           pwd
+          ls -al
     
