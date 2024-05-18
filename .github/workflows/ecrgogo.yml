@@ -18,7 +18,7 @@ permissions:
 jobs:
   webs-jobs:
     name: build-web-container
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest    # 태그 명시시 : 가 아닌 -
     
     steps:
       - name: Checkout
@@ -42,7 +42,7 @@ jobs:
 
   cats-jobs:
     name: build-cat- container
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -66,7 +66,7 @@ jobs:
 
   dogs-jobs:
     name: build-dogs-container
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
