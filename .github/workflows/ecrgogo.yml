@@ -2,7 +2,10 @@
 
 name: cats and dogs gitaction
 
-on: workflow_dispatch
+on: 
+  push:
+    branches:
+      - main
 
 env:
   AWS_ACCESS_ROLE: ${{ secrets.AWS_ACCESS_ROLE }}
