@@ -26,8 +26,8 @@ jobs:
     steps:  
       - id: get-date
         run: |
-				sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-				echo "tag=$(date +'%Y%m%d.%H%M%S')" >> $GITHUB_OUTPUT
+	sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+ 	echo "tag=$(date + '%Y%m%d.%H%M%S')" >> $GITHUB_OUTPUT
   
   webs-jobs:
     name: build-web-container
