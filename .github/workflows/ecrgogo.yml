@@ -27,8 +27,10 @@ jobs:
       - id: get-date
         run: |
         sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+        echo "tag=$(date + '%Y%m%d.%H%M%S')" >> $GITHUB_OUTPUT
   
   webs-jobs:
+    needs: versioning
     name: build-web-container
     runs-on: ubuntu-latest    # 태그 명시시 : 가 아닌 -
     
@@ -53,14 +55,15 @@ jobs:
 
       - name: docker build to webs
         run: |
-          docker build -t ${{ env.AWS_WEBS_REPO }}:${{ github.sha }} .
+          docker build -t ${{ env.AWS_WEBS_REPO }}:${{ needs.versioning.outputs.tag }} .
           docker images
 
       - name: push repo
         run: |
-          docker push ${{ env.AWS_WEBS_REPO }}:${{ github.sha }}
+          docker push ${{ env.AWS_WEBS_REPO }}:${{ needs.versioning.outputs.tag }}
 
   cats-jobs:
+    needs: versioning
     name: build-cat- container
     runs-on: ubuntu-latest
 
@@ -85,14 +88,15 @@ jobs:
 
       - name: docker build to cats
         run: |
-          docker build -t ${{ env.AWS_CATS_REPO }}:${{ github.sha }} .
+          docker build -t ${{ env.AWS_CATS_REPO }}:${{ needs.versioning.outputs.tag }} .
           docker images
 
       - name: push repo
         run: |
-          docker push ${{ env.AWS_CATS_REPO }}:${{ github.sha }}
+          docker push ${{ env.AWS_CATS_REPO }}:${{ needs.versioning.outputs.tag }}
 
   dogs-jobs:
+    needs: versioning
     name: build-dogs-container
     runs-on: ubuntu-latest
 
@@ -117,10 +121,10 @@ jobs:
 
       - name: docker build to dogs
         run: |
-          docker build -t ${{ env.AWS_DOGS_REPO }}:${{ github.sha }} .
+          docker build -t ${{ env.AWS_DOGS_REPO }}:${{ needs.versioning.outputs.tag }} .
           docker images
 
       - name: push repo
         run: |
-          docker push ${{ env.AWS_DOGS_REPO }}:${{ github.sha }}
+          docker push ${{ env.AWS_DOGS_REPO }}:${{ needs.versioning.outputs.tag }}
 
