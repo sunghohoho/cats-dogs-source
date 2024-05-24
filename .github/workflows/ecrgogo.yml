@@ -26,6 +26,7 @@ jobs:
     steps:  
       - id: get-date
         run: |
+        sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
   
   webs-jobs:
     name: build-web-container
