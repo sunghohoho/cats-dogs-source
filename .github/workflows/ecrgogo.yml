@@ -19,6 +19,16 @@ permissions:
   id-token: write
 
 jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    outputs:
+      tag=${{ steps.get-date.outputs.tag }}
+    steps:  
+      - id: get-date
+        run: |
+				sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+				echo "tag=$(date +'%Y%m%d.%H%M%S')" >> $GITHUB_OUTPUT
+  
   webs-jobs:
     name: build-web-container
     runs-on: ubuntu-latest    # 태그 명시시 : 가 아닌 -
