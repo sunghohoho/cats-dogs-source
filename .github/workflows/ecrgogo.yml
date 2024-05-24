@@ -19,15 +19,25 @@ permissions:
   id-token: write
 
 jobs:
+  # versioning:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     tag: ${{ steps.version_step.outputs.tag }}
+  #   steps:
+  #     - id: version_step
+  #       name: set version with current date
+  #       run: |
+  #         sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+  #         echo "tag=$(date +'%Y%m%d.%H%M%S')" >> "$GITHUB_OUTPUT"
   versioning:
     runs-on: ubuntu-latest
     outputs:
-      tag=${{ steps.get-date.outputs.tag }}
+      tag: ${{ steps.get-date.outputs.tag }}
     steps:  
       - id: get-date
         run: |
-        sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-        echo "tag=$(date + '%Y%m%d.%H%M%S')" >> $GITHUB_OUTPUT
+          sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+          echo "tag=$(date + '%Y%m%d.%H%M%S')" >> $GITHUB_OUTPUT
   
   webs-jobs:
     needs: versioning
