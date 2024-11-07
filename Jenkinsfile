@@ -27,20 +27,20 @@ pipeline {
             }
         }
 
-        // stage('Build and Push Webs Container') {
-        //     steps {
-        //         container("kaniko"){
-        //             script {
-        //                 dir('web') {
-        //                     echo "Building and pushing webs container..."
-        //                     sh """
-        //                         /kaniko/executor --context . --dockerfile ./Dockerfile --no-push
-        //                     """
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build and Push Webs Container') {
+            steps {
+                container("kaniko"){
+                    script {
+                        dir('web') {
+                            echo "Building and pushing webs container..."
+                            sh """
+                                /kaniko/executor --context . --dockerfile ./Dockerfile --no-push
+                            """
+                        }
+                    }
+                }
+            }
+        }
         
         stage('my credentials') {
             agent {
