@@ -4,7 +4,7 @@ pipeline {
     }
     
     environment {
-        AWS_REGION = 'ap-northeast-2'  // Jenkins 환경 변수나 Credential 관리에서 설정 가능
+        AWS_REGION = 'ap-northeast-2'  
         AWS_CATS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-cats'
         AWS_DOGS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-dogs'
         AWS_WEBS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-webs'
