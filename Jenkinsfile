@@ -43,12 +43,14 @@ pipeline {
         
         stage('Build and Push Cats Container') {
             steps {
-                script {
-                    dir('cats') {
-                        echo "Building and pushing cats container..."
-                        sh """
-                                /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
-                        """
+                container("kaniko"){
+                    script {
+                        dir('cats') {
+                            echo "Building and pushing cats container..."
+                            sh """
+                                    /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
+                            """
+                        }
                     }
                 }
             }
@@ -56,12 +58,14 @@ pipeline {
 
         stage('Build and Push Dogs Container') {
             steps {
-                script {
-                    dir('dogs') {
-                        echo "Building and pushing dogs container..."
-                        sh """
-                                /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
-                        """
+                container("kaniko"){
+                    script {
+                        dir('dogs') {
+                            echo "Building and pushing dogs container..."
+                            sh """
+                                    /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
+                            """
+                        }
                     }
                 }
             }
