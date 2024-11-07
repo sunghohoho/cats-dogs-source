@@ -1,4 +1,4 @@
-FROM nginx:1.27.2-alpine-slim
+FROM nginx
 EXPOSE 80
 RUN apt-get update -y && \
   apt-get upgrade -y && \
