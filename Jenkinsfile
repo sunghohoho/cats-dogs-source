@@ -35,7 +35,7 @@ pipeline {
                         sh """
                             // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
                             docker build -t ${AWS_WEBS_REPO}:${TAG} .
-                            docker push ${AWS_WEBS_REPO}:${TAG}
+                            // docker push ${AWS_WEBS_REPO}:${TAG}
                         """
                     }
                 }
@@ -50,7 +50,7 @@ pipeline {
                         sh """
                             // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_CATS_REPO}
                             docker build -t ${AWS_CATS_REPO}:${TAG} .
-                            docker push ${AWS_CATS_REPO}:${TAG}
+                            // docker push ${AWS_CATS_REPO}:${TAG}
                         """
                     }
                 }
@@ -65,7 +65,7 @@ pipeline {
                         sh """
                             // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_DOGS_REPO}
                             docker build -t ${AWS_DOGS_REPO}:${TAG} .
-                            docker push ${AWS_DOGS_REPO}:${TAG}
+                            // docker push ${AWS_DOGS_REPO}:${TAG}
                         """
                     }
                 }
