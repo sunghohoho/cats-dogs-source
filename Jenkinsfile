@@ -17,30 +17,30 @@ pipeline {
                 checkout scm
             }
         }
-        // stage('Set Version Tag') {
-        //     steps {
-        //         script {
-        //             def date = new Date()
-        //             date.format('yyyyMMdd.HHmmss', TimeZone.getTimeZone('Asia/Seoul'))
-        //             TAG = date.format('yyyyMMdd.HHmmss')
-        //         }
-        //     }
-        // }
+        stage('Set Version Tag') {
+            steps {
+                script {
+                    def date = new Date()
+                    date.format('yyyyMMdd.HHmmss', TimeZone.getTimeZone('Asia/Seoul'))
+                    TAG = date.format('yyyyMMdd.HHmmss')
+                }
+            }
+        }
 
-        // stage('Build and Push Webs Container') {
-        //     steps {
-        //         script {
-        //             dir('web') {
-        //                 echo "Building and pushing webs container..."
-        //                 sh """
-        //                     // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
-        //                     docker build -t ${AWS_WEBS_REPO}:${TAG} .
-        //                     // docker push ${AWS_WEBS_REPO}:${TAG}
-        //                 """
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build and Push Webs Container') {
+            steps {
+                script {
+                    dir('web') {
+                        echo "Building and pushing webs container..."
+                        sh """
+                            // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
+                            docker build -t ${AWS_WEBS_REPO}:${TAG} .
+                            // docker push ${AWS_WEBS_REPO}:${TAG}
+                        """
+                    }
+                }
+            }
+        }
 
         // stage('Build and Push Cats Container') {
         //     steps {
