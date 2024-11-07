@@ -34,7 +34,7 @@ pipeline {
                         dir('web') {
                             echo "Building and pushing webs container..."
                             sh """
-                                /kaniko/executor --context . --dockerfile ./Dockerfile --no-push
+                                /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_WEBS_REPO}:${TAG}
                             """
                         }
                     }
