@@ -4,7 +4,7 @@ pipeline {
     }
     
     environment {
-        AWS_ACCESS_ROLE = credentials('AWS_ACCESS_ROLE')
+        // AWS_ACCESS_ROLE = credentials('AWS_ACCESS_ROLE')
         AWS_REGION = 'ap-northeast-2'  // Jenkins 환경 변수나 Credential 관리에서 설정 가능
         AWS_CATS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-cats'
         AWS_DOGS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-dogs'
@@ -33,7 +33,7 @@ pipeline {
                     dir('web') {
                         echo "Building and pushing webs container..."
                         sh """
-                            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
+                            // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
                             docker build -t ${AWS_WEBS_REPO}:${TAG} .
                             docker push ${AWS_WEBS_REPO}:${TAG}
                         """
@@ -48,7 +48,7 @@ pipeline {
                     dir('cats') {
                         echo "Building and pushing cats container..."
                         sh """
-                            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_CATS_REPO}
+                            // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_CATS_REPO}
                             docker build -t ${AWS_CATS_REPO}:${TAG} .
                             docker push ${AWS_CATS_REPO}:${TAG}
                         """
@@ -63,7 +63,7 @@ pipeline {
                     dir('dogs') {
                         echo "Building and pushing dogs container..."
                         sh """
-                            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_DOGS_REPO}
+                            // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_DOGS_REPO}
                             docker build -t ${AWS_DOGS_REPO}:${TAG} .
                             docker push ${AWS_DOGS_REPO}:${TAG}
                         """
