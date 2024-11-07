@@ -61,7 +61,7 @@ pipeline {
                 container("kaniko"){
                     script {
                         dir('dogs') {
-                            echo "Building and pushing dogs container..."
+                            echo "Building and pushing dogs container.."
                             sh """
                                     /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
                             """
