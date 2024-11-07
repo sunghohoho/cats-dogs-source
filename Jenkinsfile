@@ -29,14 +29,14 @@ pipeline {
 
         stage('Build and Push Webs Container') {
             steps {
-                script {
-                    dir('web') {
-                        echo "Building and pushing webs container..."
-                        sh """
-                            // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
-                            /kaniko/executor --context . --dockerfile ./Dockerfile --no-push
-                            // docker push ${AWS_WEBS_REPO}:${TAG}
-                        """
+                container("kaniko"){
+                    script {
+                        dir('web') {
+                            echo "Building and pushing webs container..."
+                            sh """
+                                /kaniko/executor --context . --dockerfile ./Dockerfile --no-push
+                            """
+                        }
                     }
                 }
             }
