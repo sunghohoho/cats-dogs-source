@@ -34,7 +34,7 @@ pipeline {
                         echo "Building and pushing webs container..."
                         sh """
                             // aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_WEBS_REPO}
-                            docker build -t ${AWS_WEBS_REPO}:${TAG} .
+                            /kaniko/executor --context . --dockerfile ./Dockerfile --no-push
                             // docker push ${AWS_WEBS_REPO}:${TAG}
                         """
                     }
