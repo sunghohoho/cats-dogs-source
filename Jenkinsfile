@@ -1,5 +1,7 @@
 pipeline {
-    agent kaniko
+    agent {
+        label "kaniko"
+    }
     
     environment {
         AWS_ACCESS_ROLE = credentials('AWS_ACCESS_ROLE')
