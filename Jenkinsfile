@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label "kaniko && aws"
+        label "kaniko && helm"
     }
     
     environment {
