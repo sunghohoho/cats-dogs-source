@@ -41,17 +41,17 @@ pipeline {
                 }
             }
         }
-        stage('my credentials') {
-            steps {
-                container("aws"){
-                    script{
-                        sh """
-                        aws sts get-caller-identity
-                        """
-                    }
-                }
-            }
-        }
+        // stage('my credentials') {
+        //     steps {
+        //         container("aws"){
+        //             script{
+        //                 sh """
+        //                 aws sts get-caller-identity
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
 
         // stage('Build and Push Cats Container') {
         //     steps {
