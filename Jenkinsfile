@@ -31,7 +31,7 @@ pipeline {
                 container("kaniko"){
                     script {
                         dir('web') {
-                            echo "Building and pushing webs container."
+                            echo "Building and pushing webs container.."
                             sh """
                                 /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_WEBS_REPO}:${TAG}
                             """
@@ -46,7 +46,7 @@ pipeline {
                 container("kaniko"){
                     script {
                         dir('cats') {
-                            echo "Building and pushing cats container."
+                            echo "Building and pushing cats container.."
                             sh """
                                     /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
                             """
