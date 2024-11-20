@@ -38,7 +38,7 @@ pipeline {
                 container("kaniko"){
                     script {
                         dir('cats') {
-                            echo "Building and pushing cats container.."
+                            echo "Building and pushing cats container..."
                             sh """
                                     /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
                             """
