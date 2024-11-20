@@ -8,21 +8,13 @@ pipeline {
         AWS_CATS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-cats'
         AWS_DOGS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-dogs'
         AWS_WEBS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-webs'
+        TAG = sh(script: 'git rev-parse --short HEAD', returnStdout: true)
     }
 
     stages {
         stage("Checkout") {
             steps {
                 checkout scm
-            }
-        }
-        stage('Set Version Tag') {
-            steps {
-                script {
-                    def date = new Date()
-                    date.format('yyyyMMdd.HHmmss', TimeZone.getTimeZone('Asia/Seoul'))
-                    TAG = date.format('yyyyMMdd.HHmmss')
-                }
             }
         }
 
