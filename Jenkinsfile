@@ -66,10 +66,10 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
-                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                     script {
                         // Ensure the GitHub token is used correctly
-                        echo "Using GitHub token: ${GITHUB_TOKEN}"
+                        echo "GitHub 사용자: ${GITHUB_USER}, 토큰: ${GITHUB_TOKEN}"
 
                         // Checkout the Helm values repository with authentication using the GitHub token
                         dir('cad-helm-values') {
