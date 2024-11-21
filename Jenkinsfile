@@ -66,13 +66,12 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
-                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')])
+                withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
                     script {
-                        // Directly use the TAG environment variable
-                        echo "Tag is: ${env.TAG}"
+                        // Ensure the GitHub token is used correctly
                         echo "Using GitHub token: ${GITHUB_TOKEN}"
-            
-                        // Checkout the Helm values repository
+
+                        // Checkout the Helm values repository with authentication using the GitHub token
                         dir('cad-helm-values') {
                             echo "Cloning the repository ${HELM_VALUES_REPO}"
                             sh """
@@ -88,6 +87,7 @@ pipeline {
                             """
                         }
                     }
+                }
             }
         }
     }
