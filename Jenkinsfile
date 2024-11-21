@@ -66,8 +66,9 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
+                echo $HELM_VALUES_REPO
                 // Tag 값 업데이트
-                git branch: 'main', url: $HELM_VALUES_REPO
+                git branch: 'main', url: "${HELM_VALUES_REPO}"
                 script {
                     dir('cad-helm-values') {
                         sh """
