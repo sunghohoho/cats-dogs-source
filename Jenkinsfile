@@ -66,7 +66,7 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
-                url: "${HELM_VALUES_REPO}", branch: 'main', changelog: false
+                git '$HELM_REPO'
                 
                 script {
                     // dev-values.yaml 파일에서 tag 값 업데이트
