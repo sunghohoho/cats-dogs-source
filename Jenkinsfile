@@ -66,7 +66,7 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
-                withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                     script {
                         // Ensure the GitHub token is used correctly
                         echo "Using GitHub token: ${GITHUB_TOKEN}"
