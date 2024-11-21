@@ -34,39 +34,39 @@ pipeline {
             }
         }
         
-        stage('Build and Push Cats Container') {
-            steps {
-                container("kaniko"){
-                    script {
-                        dir('cats') {
-                            echo "Building and pushing cats container..."
-                            sh """
-                                    /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
-                            """
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Build and Push Cats Container') {
+        //     steps {
+        //         container("kaniko"){
+        //             script {
+        //                 dir('cats') {
+        //                     echo "Building and pushing cats container..."
+        //                     sh """
+        //                             /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
+        //                     """
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Build and Push Dogs Container') {
-            steps {
-                container("kaniko"){
-                    script {
-                        dir('dogs') {
-                            echo "Building and pushing dogs container.."
-                            sh """
-                                    /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
-                            """
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Build and Push Dogs Container') {
+        //     steps {
+        //         container("kaniko"){
+        //             script {
+        //                 dir('dogs') {
+        //                     echo "Building and pushing dogs container.."
+        //                     sh """
+        //                             /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
+        //                     """
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
         stage('Update dev-values.yaml') {
             steps {
-                git '$HELM_REPO'
+                git $HELM_REPO
                 
                 script {
                     // dev-values.yaml 파일에서 tag 값 업데이트
