@@ -70,7 +70,8 @@ pipeline {
                     // Git 체크아웃 및 파일 수정
                     sh """
                     git clone ${HELM_REPO}
-                    cd your-repo
+                    ls -al
+                    cat dev-values.yaml
                     sed -i "s|tag: .*|tag: ${env.TAG}|" dev-values.yaml
                     git config user.name "jenkins"
                     git config user.email "jenkins@example.com"
