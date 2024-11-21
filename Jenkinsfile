@@ -66,20 +66,19 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
+                // Tag 값 업데이트
+                git branch: 'main', url: $HELM_VALUES_REPO
                 script {
-                    // Git 체크아웃 및 파일 수정
-                    sh """
-                    git clone ${HELM_VALUES_REPO}
-                    cd cad-helm-values
-                    ls -al
-                    cat dev-values.yaml
-                    sed -i "s|tag: .*|tag: ${env.TAG}|" dev-values.yaml
-                    git config user.name "jenkins"
-                    git config user.email "jenkins@example.com"
-                    git add dev-values.yaml
-                    git commit -m "Update tag in dev-values.yaml to ${env.TAG}"
-                    git push
-                    """
+                    dir('cad-helm-values') {
+                        sh """
+                        sed -i "s|tag: .*|tag: ${TAG}|" dev-values.yaml
+                        git config user.name "jenkins"
+                        git config user.email "jenkins@example.com"
+                        git add dev-values.yaml
+                        git commit -m "Update tag to ${TAG}"
+                        git push origin main
+                        """
+                    }
                 }
             }
         }
