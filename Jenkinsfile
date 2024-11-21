@@ -8,7 +8,7 @@ pipeline {
         AWS_CATS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-cats'
         AWS_DOGS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-dogs'
         AWS_WEBS_REPO = '866477832211.dkr.ecr.ap-northeast-2.amazonaws.com/abc-webs'
-        HELM_REPO = 'https://github.com/sunghohoho/cats-and-dogs-helm'
+        HELM_REPO = 'https://github.com/sunghohoho/cats-and-dogs-helm.git'
         TAG = sh(script: 'git rev-parse --short HEAD', returnStdout: true)
     }
 
@@ -66,11 +66,11 @@ pipeline {
         
         stage('Update dev-values.yaml') {
             steps {
-                git branch: 'main', url: $HELM_REPO
-                
                 script {
-                    // dev-values.yaml 파일에서 tag 값 업데이트
+                    // Git 체크아웃 및 파일 수정
                     sh """
+                    git clone ${HELM_REPO}
+                    cd your-repo
                     sed -i "s|tag: .*|tag: ${env.TAG}|" dev-values.yaml
                     git config user.name "jenkins"
                     git config user.email "jenkins@example.com"
