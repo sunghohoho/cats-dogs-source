@@ -71,8 +71,8 @@ pipeline {
 
                         // Checkout the Helm values repository with authentication using the GitHub token
                         dir('cad-helm-values') {
-                            echo "Cloning the repository ${HELM_VALUES_REPO}"
                             echo ${TAG}
+                            echo "Cloning the repository ${HELM_VALUES_REPO}"
                             sh """
                             git config --global credential.helper 'store'
                             git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
