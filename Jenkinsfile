@@ -76,10 +76,6 @@ pipeline {
                             git config --global credential.helper 'store'
                             git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                             cd cad-helm-values
-                            ls -al
-                            ====
-                            cat dev-values.yaml
-                            ====
                             sed -i "s|tag: .*|tag: ${TAG}|" dev-values.yaml
                             git config user.name "jenkins"
                             git config user.email "jenkins@example.com"
