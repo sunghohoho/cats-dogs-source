@@ -68,8 +68,6 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                     script {
-                        // Ensure the GitHub token is used correctly
-                        echo "GitHub 사용자: ${GITHUB_USER}, 토큰: ${GITHUB_TOKEN}"
 
                         // Checkout the Helm values repository with authentication using the GitHub token
                         dir('cad-helm-values') {
@@ -78,7 +76,11 @@ pipeline {
                             git config --global credential.helper 'store'
                             git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                             cd cad-helm-values
-                            sed -i "s|tag: .*|tag: ${env.TAG}|" dev-values.yaml
+                            ls -al
+                            ====
+                            cat dev-values.yaml
+                            ====
+                            sed -i "s|tag: .*|tag: ${TAG}|" dev-values.yaml
                             git config user.name "jenkins"
                             git config user.email "jenkins@example.com"
                             git add dev-values.yaml
