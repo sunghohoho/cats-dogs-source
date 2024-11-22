@@ -73,6 +73,8 @@ pipeline {
                             echo "${TAG}" // 변수 출력 시 ${} 사용
                             echo "Cloning the repository ${HELM_VALUES_REPO}"
                             sh """
+                            wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+                            chmod +x /usr/local/bin/yq
                             git config --global credential.helper 'store'
                             git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                             cd cad-helm-values
