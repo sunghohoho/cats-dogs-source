@@ -68,7 +68,7 @@ pipeline {
             steps {
                 container("yq"){
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-                        script 
+                        script {
                                 sh """
                                 # Clone the repository
                                 git config --global credential.helper 'store'
