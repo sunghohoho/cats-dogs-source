@@ -93,7 +93,7 @@ pipeline {
                                 ls -l
                                 cat dev-values.yaml
                                 # Update tag using yq
-                                yq e '.image.tag = ${env.TAG}' -i dev-values.yaml
+                                yq eval ".image.tag = \\"${TAG}\\"" -i dev-values.yaml
                                 cat dev-values.yaml
                 
                                 # Clone the repository
