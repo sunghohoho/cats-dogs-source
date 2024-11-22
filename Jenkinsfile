@@ -65,29 +65,31 @@ pipeline {
         // }
         
         stage('Update dev-values.yaml') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-                    script {
-                        dir('cad-helm-values') {
-                            echo "${TAG}" // TAG 확인
-                            echo "Cloning the repository ${HELM_VALUES_REPO}"
-                            sh """
-            
-                            # Clone the repository
-                            git config --global credential.helper 'store'
-                            git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
-                            cd cad-helm-values
-            
-                            # Update tag using sed
-                            sed -i "s|tag: .*|tag: ${TAG}|" dev-values.yaml
-            
-                            # Commit and push the changes
-                            git config user.name "jenkins"
-                            git config user.email "jenkins@example.com"
-                            git add dev-values.yaml
-                            git commit -m "Update tag to ${TAG}"
-                            git push origin main
-                            """
+            container("yq"){
+                steps {
+                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                        script {
+                            dir('cad-helm-values') {
+                                echo "${TAG}" // TAG 확인
+                                echo "Cloning the repository ${HELM_VALUES_REPO}"
+                                sh """
+                
+                                # Clone the repository
+                                git config --global credential.helper 'store'
+                                git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
+                                cd cad-helm-values
+                
+                                # Update tag using sed
+                                yq e '.tag = "${TAG}"' -i dev-values.yaml
+                
+                                # Commit and push the changes
+                                git config user.name "jenkins"
+                                git config user.email "jenkins@example.com"
+                                git add dev-values.yaml
+                                git commit -m "Update tag to ${TAG}"
+                                git push origin main
+                                """
+                            }
                         }
                     }
                 }
