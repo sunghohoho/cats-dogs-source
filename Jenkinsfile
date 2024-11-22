@@ -75,7 +75,7 @@ pipeline {
                                 sh """
 
                                 # Update tag using sed
-                                yq e '.tag = "${TAG}"' -i dev-values.yaml
+                                yq eval '.image.tag = "${TAG}"' -i values.yaml
                                 cat dev-values.yaml
                 
                                 # Clone the repository
