@@ -73,14 +73,15 @@ pipeline {
                                 echo "${TAG}" // TAG 확인
                                 echo "Cloning the repository ${HELM_VALUES_REPO}"
                                 sh """
+
+                                # Update tag using sed
+                                yq e '.tag = "${TAG}"' -i dev-values.yaml
+                                cat dev-values.yaml
                 
                                 # Clone the repository
                                 git config --global credential.helper 'store'
                                 git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                                 cd cad-helm-values
-                
-                                # Update tag using sed
-                                yq e '.tag = "${TAG}"' -i dev-values.yaml
                 
                                 # Commit and push the changes
                                 git config user.name "jenkins"
