@@ -66,7 +66,7 @@ pipeline {
 
         stage('helm values git'){
             steps {
-                container("kaniko"){
+                container("git"){
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                         script {
                                 sh """
