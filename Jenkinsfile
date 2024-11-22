@@ -91,7 +91,7 @@ pipeline {
                                 echo "${TAG}" // TAG 확인
                                 ls -l
                                 # Update tag using yq-
-                                yq --version
+                                chmod +w dev-values.yaml
                                 yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
                                 cat dev-values.yaml
                 
