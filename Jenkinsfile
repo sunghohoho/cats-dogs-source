@@ -87,11 +87,9 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                         script {
                             dir('cad-helm-values') {
-                                echo "${TAG}" // TAG 확인
-                                echo "Cloning the repository ${HELM_VALUES_REPO}"
                                 sh """
+                                echo "${TAG}" // TAG 확인
                                 ls -l
-                                cat dev-values.yaml
                                 # Update tag using yq-
                                 yq --version
                                 yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
