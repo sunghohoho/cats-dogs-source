@@ -63,6 +63,22 @@ pipeline {
         //         }
         //     }
         // }
+
+        stage('helm values git'){
+            steps {
+                container("yq"){
+                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                        script {
+                                # Clone the repository
+                                git config --global credential.helper 'store'
+                                git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
+                                cd cad-helm-values
+                                cat dev-values.yaml
+                        }
+                    }
+                }
+            }
+        }
         
         stage('Update dev-values.yaml') {
             steps {
@@ -74,8 +90,8 @@ pipeline {
                                 echo "Cloning the repository ${HELM_VALUES_REPO}"
                                 sh """
 
-                                # Update tag using sed
-                                yq eval '.image.tag = "${TAG}"' -i values.yaml
+                                # Update tag using yq
+                                yq e '.image.tag = ${env.TAG}' -i dev-values.yaml
                                 cat dev-values.yaml
                 
                                 # Clone the repository
