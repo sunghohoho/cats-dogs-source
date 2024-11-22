@@ -91,7 +91,10 @@ pipeline {
                                 echo "${TAG}" // TAG 확인
                                 echo "Cloning the repository ${HELM_VALUES_REPO}"
                                 sh """
-
+                                echo ("""""")
+                                ls -l
+                                cat dev-values.yaml
+                                echo ("""""")
                                 # Update tag using yq
                                 yq e '.image.tag = ${env.TAG}' -i dev-values.yaml
                                 cat dev-values.yaml
