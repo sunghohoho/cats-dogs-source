@@ -92,7 +92,7 @@ pipeline {
                                 sh """
                                 ls -l
                                 cat dev-values.yaml
-                                # Update tag using yq
+                                # Update tag using yq-
                                 yq --version
                                 yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
                                 cat dev-values.yaml
