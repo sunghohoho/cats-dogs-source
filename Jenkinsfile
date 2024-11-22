@@ -74,7 +74,6 @@ pipeline {
                                 git config --global credential.helper 'store'
                                 git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                                 cd cad-helm-values
-                                cat dev-values.yaml
                                 """
                         }
                     }
@@ -91,10 +90,8 @@ pipeline {
                                 echo "${TAG}" // TAG 확인
                                 echo "Cloning the repository ${HELM_VALUES_REPO}"
                                 sh """
-                                echo ("""""")
                                 ls -l
                                 cat dev-values.yaml
-                                echo ("""""")
                                 # Update tag using yq
                                 yq e '.image.tag = ${env.TAG}' -i dev-values.yaml
                                 cat dev-values.yaml
