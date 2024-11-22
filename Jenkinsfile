@@ -72,18 +72,14 @@ pipeline {
                             echo "${TAG}" // TAG 확인
                             echo "Cloning the repository ${HELM_VALUES_REPO}"
                             sh """
-                            # Install yq inside Kaniko container
-                            apk add --no-cache curl
-                            curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq
-                            chmod +x /usr/local/bin/yq
             
                             # Clone the repository
                             git config --global credential.helper 'store'
                             git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                             cd cad-helm-values
             
-                            # Update tag using yq
-                            yq e '.tag = "${TAG}"' -i dev-values.yaml
+                            # Update tag using sed
+                            sed -i "s|tag: .*|tag: ${TAG}|" dev-values.yaml
             
                             # Commit and push the changes
                             git config user.name "jenkins"
