@@ -65,8 +65,8 @@ pipeline {
         // }
         
         stage('Update dev-values.yaml') {
-            container("yq"){
-                steps {
+            steps {
+                container("yq"){
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                         script {
                             dir('cad-helm-values') {
