@@ -81,6 +81,12 @@ pipeline {
                                 # Update tag using yq-
                                 yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
                                 cat dev-values.yaml
+
+                                git config user.name "jenkins"
+                                git config user.email "jenkins@example.com"
+                                git add dev-values.yaml
+                                git commit -m "Update tag to ${TAG},"
+                                git push origin main
                                 """
                         }
                     }
