@@ -64,55 +64,55 @@ pipeline {
             }
         }
 
-        stage('helm values git'){
-            steps {
-                container("git"){
-                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-                        script {
-                                sh """
-                                # Clone the repository
-                                git config --global credential.helper 'store'
-                                git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
-                                cd cad-helm-values
-                                apt-get update && apt-get install -y sudo
-                                sudo chmod +w dev-values.yaml
-                                """
-                        }
-                    }
-                }
-            }
-        }
+        // stage('helm values git'){
+        //     steps {
+        //         container("git"){
+        //             withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+        //                 script {
+        //                         sh """
+        //                         # Clone the repository
+        //                         git config --global credential.helper 'store'
+        //                         git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
+        //                         cd cad-helm-values
+        //                         apt-get update && apt-get install -y sudo
+        //                         sudo chmod +w dev-values.yaml
+        //                         """
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
-        stage('Update dev-values.yaml') {
-            steps {
-                container("yq"){
-                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-                        script {
-                            dir('cad-helm-values') {
-                                sh """
-                                echo "${TAG}" // TAG 확인
-                                ls -l
-                                # Update tag using yq-
-                                yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
-                                cat dev-values.yaml
+        // stage('Update dev-values.yaml') {
+        //     steps {
+        //         container("yq"){
+        //             withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+        //                 script {
+        //                     dir('cad-helm-values') {
+        //                         sh """
+        //                         echo "${TAG}" // TAG 확인
+        //                         ls -l
+        //                         # Update tag using yq-
+        //                         yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
+        //                         cat dev-values.yaml
                 
-                                # Clone the repository
-                                git config --global credential.helper 'store'
-                                git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
-                                cd cad-helm-values
+        //                         # Clone the repository
+        //                         git config --global credential.helper 'store'
+        //                         git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
+        //                         cd cad-helm-values
                 
-                                # Commit and push the changes
-                                git config user.name "jenkins"
-                                git config user.email "jenkins@example.com"
-                                git add dev-values.yaml
-                                git commit -m "Update tag to ${TAG}"
-                                git push origin main
-                                """
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //                         # Commit and push the changes
+        //                         git config user.name "jenkins"
+        //                         git config user.email "jenkins@example.com"
+        //                         git add dev-values.yaml
+        //                         git commit -m "Update tag to ${TAG}"
+        //                         git push origin main
+        //                         """
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
