@@ -74,6 +74,7 @@ pipeline {
                                 git config --global credential.helper 'store'
                                 git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
                                 cd cad-helm-values
+                                apt-get update && apt-get install -y sudo
                                 sudo chmod +w dev-values.yaml
                                 """
                         }
