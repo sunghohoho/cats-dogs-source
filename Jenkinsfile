@@ -34,54 +34,59 @@ pipeline {
             }
         }
         
-        stage('Build and Push Cats Container') {
-            steps {
-                container("kaniko"){
-                    script {
-                        dir('cats') {
-                            echo "Building and pushing cats container..."
-                            sh """
-                                    /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
-                            """
-                        }
-                    }
-                }
-            }
-        }
-
-        stage('Build and Push Dogs Container') {
-            steps {
-                container("kaniko"){
-                    script {
-                        dir('dogs') {
-                            echo "Building and pushing dogs container.."
-                            sh """
-                                    /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
-                            """
-                        }
-                    }
-                }
-            }
-        }
-
-        // stage('helm values git'){
+        // stage('Build and Push Cats Container') {
         //     steps {
-        //         container("git"){
-        //             withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-        //                 script {
-        //                         sh """
-        //                         # Clone the repository
-        //                         git config --global credential.helper 'store'
-        //                         git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
-        //                         cd cad-helm-values
-        //                         apt-get update && apt-get install -y sudo
-        //                         sudo chmod +w dev-values.yaml
-        //                         """
+        //         container("kaniko"){
+        //             script {
+        //                 dir('cats') {
+        //                     echo "Building and pushing cats container..."
+        //                     sh """
+        //                             /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_CATS_REPO}:${TAG}
+        //                     """
         //                 }
         //             }
         //         }
         //     }
         // }
+
+        // stage('Build and Push Dogs Container') {
+        //     steps {
+        //         container("kaniko"){
+        //             script {
+        //                 dir('dogs') {
+        //                     echo "Building and pushing dogs container.."
+        //                     sh """
+        //                             /kaniko/executor --context . --dockerfile ./Dockerfile --destination ${AWS_DOGS_REPO}:${TAG}
+        //                     """
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage('helm values git'){
+            steps {
+                container("git"){
+                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                        script {
+                                sh """
+                                # Clone the repository
+                                git config --global credential.helper 'store'
+                                git clone https://username:${GITHUB_TOKEN}@github.com/sunghohoho/cad-helm-values.git
+                                cd cad-helm-values
+                                wget https://github.com/mikefarah/yq/releases/download/v4.44.2/yq_linux_amd64 -O /usr/bin/yq
+                                chmod +x /usr/bin/yq
+                                ls -l
+                                
+                                # Update tag using yq-
+                                yq eval '.image.tag = "${TAG}"' -i dev-values.yaml
+                                cat dev-values.yaml
+                                """
+                        }
+                    }
+                }
+            }
+        }
         
         // stage('Update dev-values.yaml') {
         //     steps {
